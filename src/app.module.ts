@@ -13,6 +13,6 @@ import { LocaleModule } from './locale/locale.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthGuardMiddleware).forRoutes('/locales');
+    consumer.apply(AuthGuardMiddleware).forRoutes('/locale');
   }
 }

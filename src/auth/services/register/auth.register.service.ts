@@ -30,17 +30,20 @@ export class AuthRegisterService {
   }
 
   async register(newUserCredentials: RegisterUserDTO) {
+    const { email, name } = newUserCredentials;
+
     await this.newUserValidation(newUserCredentials);
 
     const passwordHash = await hash(newUserCredentials.password, 10);
 
     await this.db.user.create({
       data: {
-        ...newUserCredentials,
+        email,
+        name,
         password: passwordHash,
       },
     });
 
-    return 'This action adds a new auth';
+    return `Usuário cadastrado com sucesso!`;
   }
 }

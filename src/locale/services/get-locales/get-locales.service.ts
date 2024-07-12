@@ -7,7 +7,9 @@ export class GetLocalesService {
   async findAll(name: string) {
     const locales = await this.db.locale.findMany({
       where: {
-        name: name,
+        name: {
+          contains: name,
+        },
       },
     });
 

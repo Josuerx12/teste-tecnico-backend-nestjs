@@ -12,12 +12,14 @@ export class AuthController {
   ) {}
 
   @Post('register')
-  create(@Body() newUserCredentials: RegisterUserDTO) {
-    return this.AuthRegisterService.register(newUserCredentials);
+  async create(@Body() newUserCredentials: RegisterUserDTO) {
+    const payload = await this.AuthRegisterService.register(newUserCredentials);
+    return { payload };
   }
 
   @Post('login')
-  update(@Body() loginCredentials: LoginDTO) {
-    return this.AuthLoginService.login(loginCredentials);
+  async update(@Body() loginCredentials: LoginDTO) {
+    const token = await this.AuthLoginService.login(loginCredentials);
+    return { token };
   }
 }

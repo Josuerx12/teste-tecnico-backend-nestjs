@@ -15,7 +15,7 @@ export class CreateLocaleDto extends Locale {
   city: string;
 
   @IsString({ message: 'State of the locale is required.' })
-  @MinLength(3, {
+  @MinLength(2, {
     message: 'State of the locale must have more than 3 characters.',
   })
   state: string;
