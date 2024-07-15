@@ -1,73 +1,105 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Teste Técnico
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este repositório contém o código para o projeto de teste tecnico backend nestjs.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Instruções de Instalação e Execução
 
-## Description
+1. **Clonar o repositório:**
+   git clone https://github.com/Josuerx12/teste-tecnico-backend-nestjs.git
+   cd teste-tecnico-backend-nestjs
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# Configurar variáveis de ambiente:
 
-## Installation
+1.  Renomeie o arquivo .env.example para .env.
+2.  Preencha as variáveis de ambiente necessárias no arquivo .env conforme descrito na documentação.
 
-```bash
-$ npm install
-```
+# Subir o servidor com Docker Compose:
 
-## Running the app
+Execute no console antes de rodar o servidor: _docker-compose up_
 
-```bash
-# development
-$ npm run start
+- Isso iniciará o servidor com o Prisma SQL configurado conforme especificações do projeto.
 
-# watch mode
-$ npm run start:dev
+## Rotas Disponíveis
 
-# production mode
-$ npm run start:prod
-```
+# Autenticação
 
-## Test
+# POST /auth/register
 
-```bash
-# unit tests
-$ npm run test
+- Endpoint para registrar um novo usuário.
+- Parâmetros (JSON): nome, email, password, confirmPassword.
+- Exemplo de uso:
+  {
+  "name": "Nome do Usuário",
+  "email": "usuario@example.com",
+  "password": "senha123",
+  "confirmPassword": "senha123"
+  }
 
-# e2e tests
-$ npm run test:e2e
+# POST /auth/login
 
-# test coverage
-$ npm run test:cov
-```
+- Endpoint para autenticar um usuário e gerar um JWT.
+- Parâmetros (JSON): email, password.
+- Exemplo de uso:
+  {
+  "email": "usuario@example.com",
+  "password": "senha123"
+  }
 
-## Support
+# O JWT gerado deve ser utilizado nos headers das próximas requisições no formato Bearer Token.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Gerenciamento de Locais
 
-## Stay in touch
+# GET /locale/
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Endpoint para listar locais.
 
-## License
+1. Para filtrar por nome, inclua o parâmetro name na query string.
+2. Exemplo de uso: /locale?name=nome-do-local.
+3. Retorna a lista de locais baseados no nome informado; se nenhum nome for informado, retorna todos os locais.
 
-Nest is [MIT licensed](LICENSE).
+# GET /locale/
+
+### Endpoint para obter detalhes de um local específico por ID.
+
+1. Retorna as informações de um local específico com base no ID fornecido.
+2. Exemplo de uso: /locale/123.
+
+# POST /locale/
+
+### Endpoint para criar um local específico.
+
+2. Parâmetros (JSON): para criação.
+   {
+   "name": "Seu João - Restaurante",
+   "city": "Campos dos Goytacazes",
+   "state": "RJ",
+   }
+3. Retorna o local criado.
+
+# PATCH /locale/
+
+### Endpoint para editar um local específico.
+
+1. Somente é permitido se o local foi criado pelo usuário autenticado.
+2. Exemplo de uso: /locale/123.
+3. Parâmetros (JSON): Campos a serem atualizados.
+   {
+   "name": "Seu João - Restaurante",
+   "city": "Campos dos Goytacazes",
+   "state": "RJ",
+   }
+4. Retorna o local atualizado.
+
+# DELETE /locale/
+
+### Endpoint para deletar um local específico.
+
+### Somente é permitido se o local foi criado pelo usuário autenticado.
+
+1. Exemplo de uso: /locale/123.
+2. Retorna uma mensagem de sucesso após a exclusão.
+
+# _Observações_
+
+1. Certifique-se de que o ambiente Docker esteja configurado corretamente para executar o servidor com o Prisma SQL.
+2. Utilize o JWT gerado durante o login nos headers das requisições subsequentes que exigem autenticação.
